@@ -1,0 +1,79 @@
+name: Tarefa de sprint
+description: Registrar uma tarefa planejada para a sprint
+title: "[task]: "
+labels: ["task"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use este template para tarefas de sprint (planejamento, implementação, documentação ou validação).
+
+  - type: input
+    id: sprint
+    attributes:
+      label: Sprint
+      description: Identificador da sprint.
+      placeholder: "ex.: Sprint 1"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: tipo
+    attributes:
+      label: Tipo
+      options:
+        - Implementação
+        - Experimentação (Colab)
+        - Dados
+        - Documentação
+        - Artigo
+        - Testes
+        - Infraestrutura / GitHub
+        - Outro
+    validations:
+      required: true
+
+  - type: textarea
+    id: objetivo
+    attributes:
+      label: Objetivo
+      description: O que deve ser entregue ao final desta tarefa?
+      placeholder: Descreva o objetivo de forma clara e mensurável.
+    validations:
+      required: true
+
+  - type: textarea
+    id: escopo
+    attributes:
+      label: Escopo
+      description: Atividades previstas e limites do que será feito.
+      placeholder: |
+        Inclui:
+        - ...
+        Não inclui:
+        - ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: criterios
+    attributes:
+      label: Critérios de aceite
+      description: Condições para considerar a tarefa concluída.
+      placeholder: |
+        - [ ] Critério 1
+        - [ ] Critério 2
+    validations:
+      required: true
+
+  - type: dropdown
+    id: prioridade
+    attributes:
+      label: Prioridade
+      options:
+        - Alta
+        - Média
+        - Baixa
+      default: 1
+    validations:
+      required: true

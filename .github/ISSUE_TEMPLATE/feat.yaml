@@ -1,0 +1,38 @@
+name: Feature
+description: Propor uma nova funcionalidade
+title: "[feat]: "
+labels: ["feat"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use este template para sugerir uma nova funcionalidade no projeto.
+
+  - type: textarea
+    id: motivacao
+    attributes:
+      label: Motivação
+      description: Qual necessidade esta funcionalidade resolve?
+      placeholder: Descreva o contexto e o problema.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposta
+    attributes:
+      label: Proposta
+      description: Como a funcionalidade deve funcionar?
+      placeholder: Descreva a solução proposta e o resultado esperado.
+    validations:
+      required: true
+
+  - type: textarea
+    id: criterios
+    attributes:
+      label: Critérios de aceite
+      description: Como sabermos que a funcionalidade está pronta?
+      placeholder: |
+        - Critério 1
+        - Critério 2
+    validations:
+      required: true

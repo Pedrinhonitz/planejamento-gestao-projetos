@@ -1,0 +1,40 @@
+name: Docs
+description: Melhorias ou criação de documentação
+title: "[docs]: "
+labels: ["docs"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use este template para mudanças em documentação (`README.md`, `docs/`, `article/`, etc.).
+
+  - type: dropdown
+    id: local
+    attributes:
+      label: Onde documentar
+      options:
+        - README.md
+        - docs/
+        - article/
+        - CONTRIBUTING / comunidade
+        - Outro
+    validations:
+      required: true
+
+  - type: textarea
+    id: o_que
+    attributes:
+      label: O que documentar
+      description: Qual conteúdo precisa ser criado ou atualizado?
+      placeholder: Descreva o tema e o nível de detalhe esperado.
+    validations:
+      required: true
+
+  - type: textarea
+    id: motivo
+    attributes:
+      label: Motivação
+      description: Por que essa documentação é necessária agora?
+      placeholder: Ex.: onboarding, sprint review, clareza da metodologia
+    validations:
+      required: true

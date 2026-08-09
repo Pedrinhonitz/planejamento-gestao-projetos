@@ -1,0 +1,51 @@
+name: Fix
+description: Relatar um erro ou comportamento inesperado
+title: "[fix]: "
+labels: ["fix"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use este template para reportar bugs (Colab, Streamlit, dados ou testes).
+
+  - type: dropdown
+    id: ambiente
+    attributes:
+      label: Ambiente
+      description: Onde o problema ocorreu?
+      options:
+        - Google Colab
+        - Streamlit (local)
+        - Streamlit Cloud
+        - Testes / CI
+        - Outro
+    validations:
+      required: true
+
+  - type: textarea
+    id: passos
+    attributes:
+      label: Passos para reproduzir
+      description: Liste os passos necessários para reproduzir o problema.
+      placeholder: |
+        1. Abrir o notebook X
+        2. Executar a célula Y
+        3. Observar o erro Z
+    validations:
+      required: true
+
+  - type: textarea
+    id: esperado
+    attributes:
+      label: Comportamento esperado
+      placeholder: O que deveria acontecer?
+    validations:
+      required: true
+
+  - type: textarea
+    id: obtido
+    attributes:
+      label: Comportamento obtido
+      placeholder: O que aconteceu de fato? Inclua mensagens de erro, se houver.
+    validations:
+      required: true

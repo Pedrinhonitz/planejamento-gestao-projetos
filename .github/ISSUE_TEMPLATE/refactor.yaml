@@ -1,0 +1,36 @@
+name: Refactor
+description: Refatoração sem mudança de comportamento
+title: "[refactor]: "
+labels: ["refactor"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use este template para refatorações que melhoram estrutura/legibilidade sem alterar o comportamento esperado.
+
+  - type: textarea
+    id: codigo
+    attributes:
+      label: Código afetado
+      description: Quais arquivos, módulos ou notebooks serão refatorados?
+      placeholder: Ex.: src/..., app/..., notebooks/...
+    validations:
+      required: true
+
+  - type: textarea
+    id: motivacao
+    attributes:
+      label: Motivação
+      description: Por que refatorar agora?
+      placeholder: Ex.: reduzir duplicação, melhorar nomes, facilitar testes
+    validations:
+      required: true
+
+  - type: textarea
+    id: risco
+    attributes:
+      label: Riscos
+      description: O que pode quebrar? Como será validado?
+      placeholder: Ex.: regressão em testes de aceitação; validar no Streamlit
+    validations:
+      required: true

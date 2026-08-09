@@ -1,0 +1,39 @@
+name: Test
+description: Criar ou melhorar cobertura de testes
+title: "[test]: "
+labels: ["test"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use este template para propostas de novos testes ou melhoria da cobertura existente.
+
+  - type: dropdown
+    id: tipo
+    attributes:
+      label: Tipo de teste
+      options:
+        - Unitário
+        - Integração
+        - Aceitação
+        - Outro
+    validations:
+      required: true
+
+  - type: textarea
+    id: cobertura
+    attributes:
+      label: O que cobrir
+      description: Qual comportamento, módulo ou fluxo precisa de testes?
+      placeholder: Ex.: pipeline de limpeza dos dados do MapBiomas Alerts
+    validations:
+      required: true
+
+  - type: textarea
+    id: criterio
+    attributes:
+      label: Critério de pronto
+      description: Como saberemos que os testes estão suficientes?
+      placeholder: Ex.: casos felizes e principais falhas cobertos em tests/
+    validations:
+      required: true

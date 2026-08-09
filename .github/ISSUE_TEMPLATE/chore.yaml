@@ -1,0 +1,36 @@
+name: Chore
+description: Manutenção, configuração ou dependências
+title: "[chore]: "
+labels: ["chore"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use este template para tarefas de manutenção (dependências, configuração, limpeza operativa).
+
+  - type: textarea
+    id: o_que
+    attributes:
+      label: O que mudar
+      description: Descreva a alteração de manutenção proposta.
+      placeholder: Ex.: atualizar dependências do requirements.txt
+    validations:
+      required: true
+
+  - type: textarea
+    id: porque
+    attributes:
+      label: Por quê
+      description: Qual o motivo ou benefício desta mudança?
+      placeholder: Ex.: corrigir vulnerabilidade / alinhar versão / reduzir ruído no repositório
+    validations:
+      required: true
+
+  - type: textarea
+    id: impacto
+    attributes:
+      label: Impacto esperado
+      description: O que pode ser afetado por esta mudança?
+      placeholder: Ex.: builds locais, notebooks, pipeline de instalação
+    validations:
+      required: false
