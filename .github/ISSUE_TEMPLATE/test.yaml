@@ -25,7 +25,7 @@ body:
     attributes:
       label: O que cobrir
       description: Qual comportamento, módulo ou fluxo precisa de testes?
-      placeholder: Ex.: pipeline de limpeza dos dados do MapBiomas Alerts
+      placeholder: "Ex.: pipeline de limpeza dos dados do MapBiomas Alerts"
     validations:
       required: true
 
@@ -34,6 +34,6 @@ body:
     attributes:
       label: Critério de pronto
       description: Como saberemos que os testes estão suficientes?
-      placeholder: Ex.: casos felizes e principais falhas cobertos em tests/
+      placeholder: "Ex.: casos felizes e principais falhas cobertos em tests/"
     validations:
       required: true

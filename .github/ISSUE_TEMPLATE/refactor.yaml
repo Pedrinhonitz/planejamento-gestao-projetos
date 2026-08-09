@@ -13,7 +13,7 @@ body:
     attributes:
       label: Código afetado
       description: Quais arquivos, módulos ou notebooks serão refatorados?
-      placeholder: Ex.: src/..., app/..., notebooks/...
+      placeholder: "Ex.: src/..., app/..., notebooks/..."
     validations:
       required: true
 
@@ -22,7 +22,7 @@ body:
     attributes:
       label: Motivação
       description: Por que refatorar agora?
-      placeholder: Ex.: reduzir duplicação, melhorar nomes, facilitar testes
+      placeholder: "Ex.: reduzir duplicação, melhorar nomes, facilitar testes"
     validations:
       required: true
 
@@ -31,6 +31,6 @@ body:
     attributes:
       label: Riscos
       description: O que pode quebrar? Como será validado?
-      placeholder: Ex.: regressão em testes de aceitação; validar no Streamlit
+      placeholder: "Ex.: regressão em testes de aceitação; validar no Streamlit"
     validations:
       required: true
