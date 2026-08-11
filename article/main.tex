@@ -1,0 +1,96 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{geometry}
+\usepackage{setspace}
+\usepackage{indentfirst}
+\usepackage{cite}
+\usepackage{hyperref}
+
+\geometry{
+top=3cm,
+bottom=2cm,
+left=3cm,
+right=2cm
+}
+
+\onehalfspacing
+
+\title{
+\textbf{Sistema de Apoio à Priorização da Fiscalização Ambiental de Imóveis Rurais utilizando Machine Learning}
+}
+
+\author{
+Bruno Schramm Vendruscolo 
+Pedro Henrique Klein
+}
+
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section{Introdução}
+
+O monitoramento ambiental por meio de dados geoespaciais e sensoriamento remoto tem possibilitado a identificação de alterações na cobertura vegetal em grandes extensões territoriais\cite{monitoramentdesmatamento}. No Brasil, iniciativas como o MapBiomas Alertas disponibilizam informações sobre áreas com ocorrências de desmatamento, enquanto o Cadastro Ambiental Rural (CAR) fornece dados georreferenciados sobre imóveis rurais.
+
+A grande quantidade de dados, dificulta a definição de quais áreas devem receber maior atenção das equipes de fiscalização. Com isso o uso de técnicas de Machine Learning podem auxiliar na análise de diferentes características dos imóveis e de seu histórico ambiental, permitido assim identificar padrões e estabelecer critérios de priorização de fiscalização.
+
+Diante disso o trabalho propõe o desenvolvimento de uma ferramenta capaz de integrar dados públicos do CAR e do MapBiomas para auxiliar na priorização de imóveis rurais para análise e fiscalização ambiental.
+
+\section{Problema}
+
+Identificar alertas de desmatamento não classifica qual a ocorrência de maior urgência ou que possui um maior impacto ambiental, com isso torna-se necessário desenvolver mecanismos que auxiliem na classificação de fiscalizações ambientais.
+
+O Instituto Brasileiro do Meio Ambiente e dos Recursos Naturais Renováveis (IBAMA) estabelece a utilização de análise de riscos no planejamento das ações de fiscalização ambiental, indicando a necessidade de estabelecer prioridades entre as ocorrências. \cite{ibamalegislacao}
+
+\section{Objetivos}
+
+\subsection{Objetivos Gerais}
+Desenvolver uma ferramenta para auxiliar na classificação de prioridade de alertas de desmatamento, utilizando Machine Learning.
+
+\subsection{Objetivos Específicos}
+
+\begin{itemize}
+    \item Ajudar na classificação de prioridades de fiscalizações de crimes ambientais;
+    \item Relacionar dados do SiCAR com Alertas disponíveis no MapBiomas Alertas;
+    \item Desenvolver um modelo capaz de priorizar alertas de desmatamento;
+    \item Desenvolver uma aplicação em Streamlit suportando o uso do modelo.
+\end{itemize}
+
+\section{Justificativa}
+
+A fiscalização ambiental desempenha um papel importante no controle do desmatamento. Um estudo recente mostra que fiscalizar e aplicar as leis na legislação ambiental podem contribuir para a redução do desmatamento na Amazônia brasileira. \cite{amazoniabrasileira}
+
+Diante disso, a capacidade de fiscalizar é limitada diante da extensão territorial e da quantidade de ocorrencias identificadas. O IBAMA reconhece essa necessidade ao estabelecer a análise de riscos e a definição de prioridades como parte o planejamento de ações de fiscalização. \cite{ibamalegislacao}
+
+Outro estudo relacionado a monitoramento de desmatamento destaca o desafio envolvendo o processamento e analise de grandes volumes de dados, vindo de sensoriamento remoto. \cite{monitoramentdesmatamento}
+
+Com isso técnicas de Machine Learning podem auxiliar na identificação de padrões presentes nos dados e nos imóveis rurais classificando assim uma prioridade de fiscalização. Portanto o trabalho busca ajudar a transformar dados ambientais públicos em informações que possam ajudar na fiscalização do combate ao desmatamento.
+
+\begin{thebibliography}{9}
+
+\bibitem{monitoramentdesmatamento}
+\textit{Enhancing deforestation monitoring in the Brazilian Amazon: A semi-automatic approach leveraging uncertainty estimation}.
+2024.
+Disponível em:
+\url{https://www.sciencedirect.com/science/article/abs/pii/S0924271624000765}.
+
+\bibitem{ibamalegislacao}
+IBAMA.
+\textit{Portaria nº 217, de 10 de outubro de 2023}.
+Instituto Brasileiro do Meio Ambiente e dos Recursos Naturais Renováveis, 2023.
+Disponível em:
+\url{https://www.ibama.gov.br/component/legislacao/?legislacao=139359\&view=legislacao}.
+
+\bibitem{amazoniabrasileira}
+\textit{Environmental enforcement and sustainable development: Causal evidence at the municipal level for the Brazilian Amazon}.
+Journal of Environmental Management, 2026.
+Disponível em:
+\url{https://www.sciencedirect.com/science/article/abs/pii/S0301479726006468}.
+
+\end{thebibliography}
+
+\end{document}
