@@ -21,7 +21,8 @@
 
 <p align="center">
   <a href="#dart-sobre">Sobre</a> &#xa0; | &#xa0;
-  <a href="#configuração-de-ambiente">Ambiente</a> &#xa0; | &#xa0;
+  <a href="#gear-configuração-de-ambiente">Ambiente</a> &#xa0; | &#xa0;
+  <a href="#busts_in_silhouette-histórias-de-usuário">Histórias de usuário</a> &#xa0; | &#xa0;
   <a href="https://github.com/Pedrinhonitz" target="_blank">Autor</a>
 </p>
 
@@ -35,7 +36,11 @@ O objetivo é entregar incrementos a cada sprint (código, documentação e arti
 
 **Autor:** Bruno Schramm Vendruscolo e Pedro Henrique Klein
 
-## Configuração de ambiente ##
+## :busts_in_silhouette: Histórias de usuário ##
+
+As histórias de usuário do produto estão em [docs/historias-usuario.md](docs/historias-usuario.md).
+
+## :gear: Configuração de ambiente ##
 
 > A implementação ainda está em andamento
 
