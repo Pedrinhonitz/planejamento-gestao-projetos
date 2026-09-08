@@ -1,1 +1,11 @@
 .env
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Artefatos gerados pelo pipeline de ML
+data/raw/*
+data/processed/*
+data/models/*
+!data/**/.gitkeep
