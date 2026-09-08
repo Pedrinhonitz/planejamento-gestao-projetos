@@ -1,3 +1,7 @@
+import threading
+import time
+
+
 class HttpMapbiomasAlertsHook:
     """Cliente GraphQL para a API MapBiomas Alerta v2.
 
@@ -6,6 +10,9 @@ class HttpMapbiomasAlertsHook:
     """
 
     GRAPHQL_URL = "https://plataforma.alerta.mapbiomas.org/api/v2/graphql"
+    TIMEOUT = 120
+    MAX_RETRIES = 5
+    RETRYABLE_STATUS_CODES = {429, 502, 503, 504}
 
     SIGN_IN_MUTATION = """
     mutation signIn($email: String!, $password: String!) {
@@ -63,15 +70,44 @@ class HttpMapbiomasAlertsHook:
             username: E-mail da conta MapBiomas Alerta.
             password: Senha da conta MapBiomas Alerta.
         """
-        import requests
-
         self.username = username
         self.password = password
         self.url = self.GRAPHQL_URL
-        self.session = requests.Session()
+        self._local = threading.local()
+        self._token_lock = threading.Lock()
         self._token = None
 
         super().__init__()
+
+    @property
+    def session(self):
+        """Session HTTP isolada por thread."""
+        import requests
+
+        session = getattr(self._local, "session", None)
+        if session is None:
+            session = requests.Session()
+            self._local.session = session
+        return session
+
+    def _backoff_seconds(self, attempt: int, response=None) -> float:
+        """Calcula o tempo de espera entre retries.
+
+        Args:
+            attempt: Número da tentativa que acabou de falhar (1-based).
+            response: Resposta HTTP, quando houver, para ler ``Retry-After``.
+
+        Returns:
+            Segundos de espera, limitados a 60.
+        """
+        if response is not None:
+            retry_after = response.headers.get("Retry-After")
+            if retry_after:
+                try:
+                    return min(60.0, float(retry_after))
+                except ValueError:
+                    pass
+        return min(60.0, float(2 ** attempt))
 
     def _sign_in(self) -> str:
         """Autentica na API e obtém o Bearer token.
@@ -100,9 +136,12 @@ class HttpMapbiomasAlertsHook:
         Returns:
             Bearer token pronto para uso no header Authorization.
         """
-        if not self._token:
-            return self._sign_in()
-        return self._token
+        if self._token:
+            return self._token
+        with self._token_lock:
+            if not self._token:
+                return self._sign_in()
+            return self._token
 
     def _post_graphql(
         self,
@@ -123,31 +162,58 @@ class HttpMapbiomasAlertsHook:
         Raises:
             RuntimeError: Em falha HTTP ou erros GraphQL no body.
         """
+        from requests.exceptions import ConnectionError, Timeout
+
         headers = {"Content-Type": "application/json"}
         if authenticated:
             token = self._ensure_token()
             headers["Authorization"] = f"Bearer {token}"
 
-        response = self.session.post(
-            self.url,
-            json={"query": query, "variables": variables or {}},
-            headers=headers,
-            timeout=120,
+        last_error = None
+        for attempt in range(1, self.MAX_RETRIES + 1):
+            try:
+                response = self.session.post(
+                    self.url,
+                    json={"query": query, "variables": variables or {}},
+                    headers=headers,
+                    timeout=self.TIMEOUT,
+                )
+            except (Timeout, ConnectionError) as exc:
+                last_error = exc
+                if attempt == self.MAX_RETRIES:
+                    raise RuntimeError(
+                        f"Timeout/conexão MapBiomas Alerta após {self.MAX_RETRIES} tentativas: {exc}"
+                    ) from exc
+                time.sleep(self._backoff_seconds(attempt))
+                continue
+
+            if response.status_code in self.RETRYABLE_STATUS_CODES:
+                last_error = RuntimeError(
+                    f"Erro HTTP MapBiomas Alerta ({response.status_code}): {response.text}"
+                )
+                if attempt == self.MAX_RETRIES:
+                    raise last_error
+                time.sleep(self._backoff_seconds(attempt, response))
+                continue
+
+            if response.status_code != 200:
+                raise RuntimeError(
+                    f"Erro HTTP MapBiomas Alerta ({response.status_code}): {response.text}"
+                )
+
+            payload = response.json()
+            errors = payload.get("errors")
+            if errors:
+                messages = "; ".join(
+                    error.get("message", str(error)) for error in errors
+                )
+                raise RuntimeError(f"Erro GraphQL MapBiomas Alerta: {messages}")
+
+            return payload
+
+        raise RuntimeError(
+            f"Falha MapBiomas Alerta após {self.MAX_RETRIES} tentativas: {last_error}"
         )
-        if response.status_code != 200:
-            raise RuntimeError(
-                f"Erro HTTP MapBiomas Alerta ({response.status_code}): {response.text}"
-            )
-
-        payload = response.json()
-        errors = payload.get("errors")
-        if errors:
-            messages = "; ".join(
-                error.get("message", str(error)) for error in errors
-            )
-            raise RuntimeError(f"Erro GraphQL MapBiomas Alerta: {messages}")
-
-        return payload
 
     def _graphql(self, query: str, variables=None) -> dict:
         """Executa uma operação GraphQL autenticada.
