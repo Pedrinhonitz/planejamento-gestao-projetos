@@ -1,0 +1,394 @@
+:root {
+  color-scheme: light;
+  --papel: #f3efe6;
+  --tinta: #1c1915;
+  --mudo: #5e584f;
+  --linha: #ddd4c4;
+  --cartao: #fffdf8;
+  --verde: #1f4d3a;
+  --verde-escuro: #16382b;
+  --alta: #9b2335;
+  --media: #a15c07;
+  --baixa: #1f6b45;
+  --sombra: 0 10px 30px rgba(48, 36, 18, 0.08);
+  font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(circle at top left, rgba(31, 77, 58, 0.08), transparent 28rem),
+    var(--papel);
+  color: var(--tinta);
+}
+
+button, input { font: inherit; }
+
+.pagina {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 28px 20px 48px;
+}
+
+.topo {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  align-items: end;
+  margin-bottom: 22px;
+}
+
+.olho {
+  margin: 0 0 4px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-family: "Avenir Next", "Segoe UI", sans-serif;
+  font-size: 0.72rem;
+  color: var(--verde);
+}
+
+h1, h2 { font-weight: 600; margin: 0; }
+
+h1 { font-size: 2.2rem; letter-spacing: -0.03em; }
+
+.resumo {
+  max-width: 36rem;
+  margin: 0;
+  color: var(--mudo);
+  line-height: 1.45;
+}
+
+.entrada, .painel, .imagens {
+  background: var(--cartao);
+  border: 1px solid var(--linha);
+  border-radius: 18px;
+  box-shadow: var(--sombra);
+}
+
+.entrada { padding: 16px 18px 14px; margin-bottom: 16px; }
+
+.entrada label {
+  display: block;
+  margin-bottom: 8px;
+  font-family: "Avenir Next", "Segoe UI", sans-serif;
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.linha-form { display: flex; gap: 8px; }
+
+input {
+  flex: 1;
+  min-width: 0;
+  border: 1px solid var(--linha);
+  background: #fff;
+  border-radius: 12px;
+  padding: 12px 14px;
+  color: var(--tinta);
+}
+
+button {
+  border: 0;
+  border-radius: 12px;
+  padding: 12px 16px;
+  background: var(--verde);
+  color: #f6f3ec;
+  cursor: pointer;
+}
+
+button:disabled { opacity: 0.6; cursor: wait; }
+
+button.secundario {
+  background: transparent;
+  color: var(--verde-escuro);
+  border: 1px solid var(--linha);
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+  padding: 12px 0 0;
+  margin: 0;
+}
+
+.chips li {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #efe8da;
+  border-radius: 999px;
+  padding: 4px 4px 4px 10px;
+}
+
+.chips code, td code {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.75rem;
+}
+
+.chips button {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--tinta);
+}
+
+.aviso, .erro, .condicao {
+  margin: 10px 0 0;
+  font-family: "Avenir Next", "Segoe UI", sans-serif;
+  font-size: 0.92rem;
+}
+
+.aviso { color: var(--media); }
+.erro { color: var(--alta); }
+.condicao { color: var(--mudo); }
+
+.workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(320px, 0.8fr);
+  gap: 16px;
+}
+
+.painel header, .imagens header {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: baseline;
+  padding: 14px 16px 0;
+}
+
+.painel header p, .imagens header p {
+  margin: 0;
+  color: var(--mudo);
+  font-family: "Avenir Next", "Segoe UI", sans-serif;
+  font-size: 0.85rem;
+}
+
+.tabela-scroll { overflow: auto; max-height: 520px; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: "Avenir Next", "Segoe UI", sans-serif;
+  font-size: 0.86rem;
+}
+
+th, td {
+  text-align: left;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--linha);
+  white-space: nowrap;
+}
+
+th {
+  position: sticky;
+  top: 0;
+  background: #faf7f1;
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--mudo);
+}
+
+tbody tr { cursor: pointer; }
+tbody tr.ativa { background: #eef5f0; }
+.vazio { color: var(--mudo); white-space: normal; cursor: default; }
+
+.selo {
+  display: inline-block;
+  border-radius: 999px;
+  padding: 2px 8px;
+  color: white;
+  text-transform: lowercase;
+  font-size: 0.78rem;
+}
+
+.selo.alta { background: var(--alta); }
+.selo.media { background: var(--media); }
+.selo.baixa { background: var(--baixa); }
+.selo.neutro { background: #8a8175; }
+
+.mapa-painel { display: flex; flex-direction: column; min-height: 520px; position: relative; }
+.mapa { flex: 1; min-height: 420px; background: #1c2420; }
+.mapa-painel:fullscreen,
+.mapa-painel:-webkit-full-screen {
+  width: 100vw;
+  height: 100vh;
+  border-radius: 0;
+  display: flex;
+  flex-direction: column;
+}
+.mapa-painel:fullscreen .mapa,
+.mapa-painel:-webkit-full-screen .mapa,
+.mapa-painel.mapa-expandido .mapa {
+  min-height: 0;
+  height: auto;
+  border-radius: 0;
+}
+.mapa-painel.mapa-expandido {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  border-radius: 0;
+}
+.tela-cheia { padding: 8px 12px; }
+
+.legenda {
+  display: flex;
+  gap: 14px;
+  list-style: none;
+  margin: 0;
+  padding: 10px 16px 14px;
+  font-family: "Avenir Next", "Segoe UI", sans-serif;
+  font-size: 0.82rem;
+}
+
+.legenda i {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  margin-right: 6px;
+}
+
+.legenda .alta { background: var(--alta); }
+.legenda .media { background: var(--media); }
+.legenda .baixa { background: var(--baixa); }
+
+.imagens { margin-top: 16px; padding: 0 0 16px; }
+
+.comparador {
+  position: relative;
+  height: 460px;
+  margin: 12px 16px 0;
+  background: #1c1915;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.comparador img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: calc(100% - 36px);
+  object-fit: contain;
+  background: #1c1915;
+  pointer-events: none;
+  user-select: none;
+}
+
+.comparador-linha {
+  position: absolute;
+  top: 0;
+  bottom: 36px;
+  width: 2px;
+  background: #fffdf8;
+  transform: translateX(-1px);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.comparador-linha::after {
+  content: "↔";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #fffdf8;
+  color: #1c1915;
+  font-size: 1.05rem;
+  line-height: 42px;
+  text-align: center;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+}
+
+.etiqueta {
+  position: absolute;
+  top: 12px;
+  z-index: 2;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: rgba(28, 25, 21, 0.72);
+  color: #fffdf8;
+  font-family: "Avenir Next", "Segoe UI", sans-serif;
+  font-size: 0.78rem;
+  pointer-events: none;
+}
+
+.etiqueta.antes { left: 12px; }
+.etiqueta.depois { right: 12px; }
+
+.comparador input[type="range"] {
+  position: absolute;
+  inset: 0 0 36px 0;
+  width: 100%;
+  height: auto;
+  margin: 0;
+  opacity: 0;
+  cursor: ew-resize;
+  z-index: 3;
+}
+
+.comparador-datas {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 0;
+  padding: 8px 12px;
+  background: rgba(28, 25, 21, 0.88);
+  color: #f3efe6;
+  font-family: "Avenir Next", "Segoe UI", sans-serif;
+  font-size: 0.78rem;
+}
+
+.foto-unica {
+  margin: 12px 16px 0;
+  background: #f7f3eb;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.foto-unica figcaption,
+.foto-unica .aviso {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 12px;
+  font-family: "Avenir Next", "Segoe UI", sans-serif;
+  font-size: 0.85rem;
+}
+
+.foto-unica img {
+  display: block;
+  width: 100%;
+  height: 360px;
+  object-fit: contain;
+  background: #1c1915;
+}
+
+.foto-vazia { margin: 12px 16px 0; padding: 48px 16px; color: var(--mudo); text-align: center; }
+
+@media (max-width: 960px) {
+  .topo, .linha-form, .workspace { display: block; }
+  .resumo { margin-top: 8px; }
+  .linha-form button, .linha-form input { width: 100%; margin-top: 8px; }
+  .mapa-painel { margin-top: 16px; min-height: 420px; }
+  .comparador { height: 320px; }
+  .comparador-datas { flex-direction: column; gap: 2px; }
+}

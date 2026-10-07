@@ -1,8 +1,11 @@
 .env
+notebooks/.env
 __pycache__/
 *.py[cod]
 .venv/
 venv/
+node_modules/
+app/frontend/dist/
 
 # Artefatos gerados pelo pipeline de ML
 data/raw/*

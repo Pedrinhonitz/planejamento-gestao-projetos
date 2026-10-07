@@ -204,3 +204,46 @@ class HttpSicarHook:
                 break
 
         return records
+
+    def get_imovel_by_code(
+        self,
+        car_code: str,
+        projection: str = "EPSG:4326",
+    ) -> dict | None:
+        """Busca um imóvel rural pelo código CAR.
+
+        Usa ``CQL_FILTER`` no WFS da UF (dois primeiros caracteres do
+        código), em vez de paginar o estado inteiro.
+
+        Args:
+            car_code: Código do imóvel no CAR (ex.:
+                ``AC-1200708-19C3C6A0A7B6488096185809637AC4AF``).
+            projection: Sistema de referência espacial (``srsName``).
+
+        Returns:
+            Dicionário com ``properties`` e ``geometry`` (GeoJSON), ou
+            ``None`` quando o GeoServer não devolve feature.
+        """
+        code = car_code.strip()
+        uf = code[:2].lower()
+        params = {
+            "service": "WFS",
+            "version": "2.0.0",
+            "request": "GetFeature",
+            "typeNames": f"sicar:sicar_imoveis_{uf}",
+            "outputFormat": "application/json",
+            "srsName": projection,
+            "count": 1,
+            "CQL_FILTER": f"cod_imovel='{code}'",
+        }
+        response = self.session.get(self.url, params=params, verify=False, timeout=120)
+        response.raise_for_status()
+        payload = response.json()
+        features = payload.get("features") or []
+        if not features:
+            return None
+        feature = features[0]
+        return {
+            "properties": dict(feature.get("properties") or {}),
+            "geometry": feature.get("geometry"),
+        }

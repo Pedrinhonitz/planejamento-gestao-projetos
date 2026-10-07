@@ -1,0 +1,34 @@
+services:
+  backend:
+    build:
+      context: ..
+      dockerfile: app/backend/Dockerfile
+    env_file:
+      - path: ../notebooks/.env
+        required: false
+    environment:
+      MODEL_PATH: /models/modelo_priorizacao_alertas.joblib
+    volumes:
+      - ../notebooks/output/modelo_priorizacao_alertas.joblib:/models/modelo_priorizacao_alertas.joblib:ro
+    ports:
+      - "8000:8000"
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/health')",
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 20s
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      backend:
+        condition: service_healthy

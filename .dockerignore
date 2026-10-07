@@ -1,0 +1,12 @@
+.git
+.venv
+venv
+**/__pycache__
+**/*.py[cod]
+**/node_modules
+**/.env
+notebooks/output
+data
+colab
+article
+app/frontend/dist
